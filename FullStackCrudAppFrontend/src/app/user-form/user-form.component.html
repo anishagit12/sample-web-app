@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>User Saving Form</h2>
+    <form (ngSubmit)="saveUser()" #userForm="ngForm">
+        <div>
+            <label for="name">Name</label><br>
+            <pre></pre>
+            <input #name="ngModel" required minlength="2" maxlength="10" type="text" id="name" name="name" required [(ngModel)]="user.name">
+            <div *ngIf="name.invalid && name.touched" class="error">Name Invalid.</div>
+        </div>
+        <pre></pre>
+        <div>
+            <label for="email">Email ID</label><br>
+            <pre></pre>
+            <input type="email" id="email" name="email" required [(ngModel)]="user.email" #email="ngModel">
+            <div *ngIf="email.invalid && email.touched" class="error">Email Invalid.</div>
+        </div>
+        <pre></pre>
+
+        <div>
+            <label for="state">State</label><br>
+            <select name="state" id="state" [(ngModel)]="user.stateName" required>
+                <option [value]="state.name" *ngFor="let state of states">{{ state.name }}</option>
+            </select>
+        </div>
+        <pre></pre>
+
+        <button type="submit" [disabled]="userForm.invalid">Save User</button>
+    </form>
+</div>
