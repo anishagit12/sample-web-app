@@ -3,6 +3,7 @@ package com.fullcrudops.crudform.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.fullcrudops.crudform.Entity.State;
@@ -21,5 +22,8 @@ public class StateServiceImpl implements StateServiceInterface{
 	public List<State> getAllStates(){
 		return stateRepoObj.findAll();
 	}
-
+	
+	public List<State> getAllStatesSorted(){
+		return stateRepoObj.findAll(Sort.by(Sort.Direction.ASC, "name"));
+	}
 }

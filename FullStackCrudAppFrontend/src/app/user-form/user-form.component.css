@@ -1,0 +1,13 @@
+/* Default style for the success message */
+.alert {
+    transition: opacity 1s ease-in-out;
+}
+
+/* Fade-out effect */
+.fade-out {
+    opacity: 0;
+}
+
+.alert-success{
+    max-width: 400px;
+}

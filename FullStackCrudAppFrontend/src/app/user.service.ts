@@ -38,8 +38,12 @@ export class UserService {
 
   //get all users
   getAllUsers(): Observable<any[]>{
-    return this.http.get<any[]>(`${this.apiUrl}/getUsers`);
-
+    return this.http.get<any[]>(`${this.apiUrl}/getUsers`).pipe(
+      catchError(error => {
+        console.error('Error fetching users: ', error);
+        return throwError(() => new Error(error));
+      })
+    );
   }
 
   //get a user by ID

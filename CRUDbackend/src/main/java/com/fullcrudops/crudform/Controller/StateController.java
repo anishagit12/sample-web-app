@@ -42,7 +42,7 @@ public class StateController {
 	
 	@GetMapping("/getAllStates")
 	public List<State> getAllStates(){
-		return stateServObj.getAllStates();
+		return stateServObj.getAllStatesSorted();
 	}
 
 }

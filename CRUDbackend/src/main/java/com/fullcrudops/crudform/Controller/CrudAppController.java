@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fullcrudops.crudform.Entity.CrudAppEntity;
 import com.fullcrudops.crudform.Service.CrudAppServiceInterface;
+import com.fullcrudops.crudform.Service.ElasticMailService;
 
 import dto.CrudAppdto;
 import lombok.AllArgsConstructor;
@@ -23,16 +24,20 @@ import lombok.AllArgsConstructor;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/entityObj")
-@AllArgsConstructor
 public class CrudAppController {
 	
 	@Autowired
 	CrudAppServiceInterface servObj;
 	
+	@Autowired
+	private ElasticMailService emailService;
+	
 	//create user
 	@PostMapping("/save")
 	public String saveUser( @RequestBody CrudAppEntity entityObj) {
-		return servObj.createUser(entityObj);
+		String response = servObj.createUser(entityObj);
+		emailService.sendConfirmEmail(entityObj.getEmail(), entityObj.getName());
+		return response;
 	}	
 	
 	//get all users

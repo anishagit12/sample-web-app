@@ -9,5 +9,6 @@ public interface StateServiceInterface {
 	
 	public State createState(State stateEntObj);
 	public List<State> getAllStates();
+	List<State> getAllStatesSorted();
 
 }

@@ -7,6 +7,7 @@ export interface User{
 import { Component, OnInit } from '@angular/core';
 import{ UserService } from '../user.service';
 import { error } from 'console';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-form',
@@ -17,7 +18,9 @@ import { error } from 'console';
 export class UserFormComponent implements OnInit{
 
   user = {name:'', email:'', stateName:''};
-  successMessage: String = '';
+  successMessage: string = '';
+  showSuccessMessage = false;
+  fadeOutClass: boolean = false; 
   states: any[] = []; //Array to store the states
 
   constructor(private userService: UserService) {}
@@ -38,13 +41,23 @@ export class UserFormComponent implements OnInit{
     });
   }
 
-  saveUser(){
+  saveUser(userForm: NgForm){
     console.log('Submitting form with user:', this.user);
     this.userService.createUser(this.user).subscribe({
       next: (response) => {
         //console.log('Response:', response);
-        this.successMessage = response;
-        this.user = {name: '', email: '', stateName:''};
+        this.successMessage = "✔️ User saved successfully";
+        this.showSuccessMessage = true;
+        this.fadeOutClass = false;
+        
+        userForm.resetForm();
+
+        setTimeout(() => {
+          this.fadeOutClass = true; // Start fade-out effect
+          setTimeout(() => {
+            this.showSuccessMessage = false; // Hide message completely
+          }, 1000); // Wait for the fade effect to finish
+        }, 3000);
       },
       error: (error) => {
         //console.error('Error saving user:', error);
@@ -54,9 +67,7 @@ export class UserFormComponent implements OnInit{
         console.log('User creation process complete');
 
       }
-
     });
-
   }
 
 }
