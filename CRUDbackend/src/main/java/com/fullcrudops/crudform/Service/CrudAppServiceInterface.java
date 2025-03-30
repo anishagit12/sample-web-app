@@ -12,7 +12,7 @@ public interface CrudAppServiceInterface {
 	public String createUser(CrudAppEntity entityObj);
 	
 	//get all users
-	public List<CrudAppEntity> getUsers();
+	public List<CrudAppdto> getUsers();
 	
 	//get user by ID
 	public CrudAppEntity getUserById(long id);

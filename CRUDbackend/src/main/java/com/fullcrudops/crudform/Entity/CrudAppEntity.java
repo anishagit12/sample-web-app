@@ -34,10 +34,10 @@ public class CrudAppEntity {
 	@Transient
 	private String stateName;
 	
-	public String getStateName() {
-		
-		return state != null ? state.getName(): null;
-	}
+//	public String getStateName() {
+//		
+//		return state != null ? state.getName(): null;
+//	}
 	
 	
 }

@@ -42,7 +42,7 @@ public class CrudAppController {
 	
 	//get all users
 	@GetMapping("/getUsers")	
-	public List<CrudAppEntity> getAllUsers(){
+	public List<CrudAppdto> getAllUsers(){
 		return servObj.getUsers();
 	}
 	

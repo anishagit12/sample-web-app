@@ -43,8 +43,12 @@ public class CrudAppServiceImpl implements CrudAppServiceInterface {
 	}
 	
 	//Read ALL method
-	public List<CrudAppEntity> getUsers(){
-		return reposObj.findAll();		
+	public List<CrudAppdto> getUsers(){
+		List<CrudAppEntity> users = reposObj.findAll();
+		List<CrudAppdto> dtoList = users.stream()
+				.map(user -> new CrudAppdto(user))
+				.collect(Collectors.toList());
+		return dtoList;
 	}
 	
 	//read by id
