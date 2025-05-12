@@ -2,6 +2,9 @@ package com.fullcrudops.crudform.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.fullcrudops.crudform.Entity.CrudAppEntity;
 
 import dto.CrudAppdto;
@@ -12,10 +15,10 @@ public interface CrudAppServiceInterface {
 	public String createUser(CrudAppEntity entityObj);
 	
 	//get all users
-	public List<CrudAppdto> getUsers();
+	public Page<CrudAppdto> getUsers(Pageable pageable);
 	
 	//get user by ID
-	public CrudAppEntity getUserById(long id);
+	public CrudAppdto getUserById(long id);
 	
 	//update user
 	public String updateUser(long id, CrudAppEntity entityObj);

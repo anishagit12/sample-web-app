@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { ShowByIDComponent } from './show-by-id/show-by-id.component';
+import { DisplayUserByIdComponent } from './display-user-by-id/display-user-by-id.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserFormComponent,
     HomepageComponent,
-    UsersListComponent
+    UsersListComponent,
+    ShowByIDComponent,
+    DisplayUserByIdComponent
   ],
   imports: [
     BrowserModule,

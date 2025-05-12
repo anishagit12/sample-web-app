@@ -3,6 +3,14 @@ import{ HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+export interface PaginatedResponse{
+  content: any[];
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,8 +45,8 @@ export class UserService {
   }
 
   //get all users
-  getAllUsers(): Observable<any[]>{
-    return this.http.get<any[]>(`${this.apiUrl}/getUsers`).pipe(
+  getAllUsers(page: number, size:number): Observable<PaginatedResponse>{
+    return this.http.get<PaginatedResponse>(`${this.apiUrl}/getUsers?page=${page}&size=${size}`).pipe(
       catchError(error => {
         console.error('Error fetching users: ', error);
         return throwError(() => new Error(error));

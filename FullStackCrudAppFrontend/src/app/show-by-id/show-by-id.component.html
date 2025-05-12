@@ -1,0 +1,12 @@
+<div class="container">
+    <h2>Search User by ID</h2>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <form (ngSubmit)="fetchById()" #form="ngForm">
+        <label for="userId">Enter User ID: </label><br>
+        <input type="text" name="userId" id="userId" [(ngModel)]="userId" required>
+        <pre></pre>
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Fetch User</button>
+    </form>
+</div>

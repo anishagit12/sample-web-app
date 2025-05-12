@@ -1,0 +1,11 @@
+<div *ngIf="user; else errorBlock">
+    <h2>User Details</h2>
+    <p><strong>ID: </strong>{{ user.id }}</p>
+    <p><strong>Name: </strong>{{ user.name }}</p>
+    <p><strong>Email: </strong>{{ user.email }}</p>
+    <p><strong>State: </strong>{{ user.stateName }}</p>
+</div>
+
+<ng-template #errorBlock>
+    <p class="error">{{ errorMessage }}</p>
+</ng-template>

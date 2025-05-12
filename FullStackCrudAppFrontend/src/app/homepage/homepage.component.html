@@ -1,16 +1,17 @@
 <!-- to override user agent stylesheet -->
 <html>
-<body>
+<body class="home-body">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 <div class="home-container">
     <h2>Welcome to the User Management App</h2>
     <div class="options-div">
-        <p>Choose an option: </p>
         <div class="buttons-div">
             <button id="createUserbtn" routerLink="/create-user">Create User</button>
             <button id="showAllbtn" routerLink="/users">Show All Users</button>
-            <button id="showbyIDbtn">Show User By ID</button>
+            <button id="showbyIDbtn" routerLink="/get-by-id">Show User By ID</button>
+            <button id="updateUser">Update User</button>
+            <button id="delUser">Delete User</button>
         </div>
     </div>
 </div>

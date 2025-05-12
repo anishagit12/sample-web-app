@@ -1,13 +1,13 @@
-package com.fullcrudops.crudform;
+package com.microservice.useranalytics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FullStackCrudFormApplication {
+public class UserAnalyticsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FullStackCrudFormApplication.class, args);
+		SpringApplication.run(UserAnalyticsApplication.class, args);
 	}
 
 }

@@ -3,6 +3,9 @@ package com.fullcrudops.crudform.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,14 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fullcrudops.crudform.Entity.CrudAppEntity;
 import com.fullcrudops.crudform.Service.CrudAppServiceInterface;
 import com.fullcrudops.crudform.Service.ElasticMailService;
+import com.fullcrudops.crudform.Service.UserAnalyticsClientService;
 
 import dto.CrudAppdto;
 import lombok.AllArgsConstructor;
+import reactor.core.publisher.Mono;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -32,6 +38,13 @@ public class CrudAppController {
 	@Autowired
 	private ElasticMailService emailService;
 	
+	@Autowired
+	private final UserAnalyticsClientService analyticsServObj;
+	
+	public CrudAppController(UserAnalyticsClientService analyticsServObj) {
+		this.analyticsServObj = analyticsServObj;
+	}
+	
 	//create user
 	@PostMapping("/save")
 	public String saveUser( @RequestBody CrudAppEntity entityObj) {
@@ -42,13 +55,14 @@ public class CrudAppController {
 	
 	//get all users
 	@GetMapping("/getUsers")	
-	public List<CrudAppdto> getAllUsers(){
-		return servObj.getUsers();
+	public Page<CrudAppdto> getAllUsers( @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="15") int size){
+		Pageable pageable = PageRequest.of(page, size);
+		return servObj.getUsers(pageable);
 	}
 	
 	//get user by id
 	@GetMapping("/getUser/{id}")
-	public CrudAppEntity getUserId(@PathVariable long id) {
+	public CrudAppdto getUserId(@PathVariable long id) {
 		return servObj.getUserById(id);
 	}
 	
@@ -80,4 +94,17 @@ public class CrudAppController {
 		return ResponseEntity.ok(servObj.getUsersByState(dtoObj.getStateName()));
 	}
 	
+	//record login activity in UserAnalytics microservice
+	@PostMapping("/login")
+	public String loginUser(@RequestParam String email) {
+		analyticsServObj.logUserActivity(email, "LOGIN");
+		return "User logged in!";
+	}
+	
+	//get login activity from UserAnalytics microservice
+	@GetMapping("/activity/{email}")
+	public Mono<String> getUserActivity(@PathVariable String email) {
+		
+		return analyticsServObj.getUserActivity(email);
+	}	
 }

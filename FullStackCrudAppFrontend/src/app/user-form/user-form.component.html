@@ -7,7 +7,7 @@
         <div>
             <label for="name">Name</label><br>
             <pre></pre>
-            <input #name="ngModel" required minlength="2" maxlength="50" type="text" id="name" name="name" required [(ngModel)]="user.name">
+            <input #name="ngModel" minlength="2" maxlength="50" type="text" id="name" name="name" required [(ngModel)]="user.name">
             <div *ngIf="name.invalid && name.touched" class="error">Name Invalid.</div>
         </div>
         <pre></pre>

@@ -5,7 +5,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fullcrudops.crudform.Entity.CrudAppEntity;
@@ -20,10 +21,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CrudAppServiceImpl implements CrudAppServiceInterface {
 	
-	@Autowired
+	
 	CrudAppRepository reposObj;
 	
-	@Autowired
 	StateRepository stateRepoObj;
 	
 	//Create method
@@ -42,20 +42,23 @@ public class CrudAppServiceImpl implements CrudAppServiceInterface {
 		}
 	}
 	
-	//Read ALL method
-	public List<CrudAppdto> getUsers(){
-		List<CrudAppEntity> users = reposObj.findAll();
-		List<CrudAppdto> dtoList = users.stream()
-				.map(user -> new CrudAppdto(user))
-				.collect(Collectors.toList());
-		return dtoList;
+	//Read ALL users
+	public Page<CrudAppdto> getUsers(Pageable pageable){
+		Page<CrudAppEntity> usersPage = reposObj.findAll(pageable);
+		return usersPage.map(CrudAppdto::new);
 	}
 	
-	//read by id
-	public CrudAppEntity getUserById(long id) {
-		CrudAppEntity entityObj3 = reposObj.findById(id).orElseThrow(()
-				->new RuntimeException("User not found"));
-		return entityObj3;
+	//read user by id
+	public CrudAppdto getUserById(long id) {
+		CrudAppEntity userEntity = reposObj.findById(id)
+										   .orElseThrow(()-> new RuntimeException("User not found"));
+		CrudAppdto dto = new CrudAppdto();
+		dto.setId(userEntity.getId());
+		dto.setName(userEntity.getName());
+		dto.setEmail(userEntity.getEmail());
+		dto.setStateName(userEntity.getState().getName());
+		
+		return dto;
 	}
 	
 	//update user
@@ -116,6 +119,7 @@ public class CrudAppServiceImpl implements CrudAppServiceInterface {
 		
 		return users.stream().map(user -> {
 			CrudAppdto dtoObj = new CrudAppdto();
+			dtoObj.setId(user.getId());
 			dtoObj.setName(user.getName());
 			dtoObj.setEmail(user.getEmail());
 			dtoObj.setStateName(user.getState().getName());
