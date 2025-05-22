@@ -3,4 +3,5 @@ target/
 dist/
 .env
 /.metadata/
-AWS.txt
+info.docx
+sample web app keyPair.ppk

@@ -27,7 +27,7 @@ import dto.CrudAppdto;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/entityObj")
 public class CrudAppController {

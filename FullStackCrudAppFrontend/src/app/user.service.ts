@@ -16,8 +16,8 @@ export interface PaginatedResponse{
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/entityObj'; //base url of your API
-  private statesUrl = 'http://localhost:8080/StateOps/getAllStates';
+  private apiUrl = `${environment.apiBaseUrl}/entityObj`; //base url of your API
+  private statesUrl = `${environment.apiBaseUrl}/StateOps/getAllStates`;
 
   constructor(private http: HttpClient) {}
 
